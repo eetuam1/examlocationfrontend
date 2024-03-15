@@ -3,7 +3,7 @@ const router = express.Router();
 const { getLocations, addLocation, getLocation, deleteLocation, updateLocation } = require('../controllers/locationController');
 const requireAuth = require('../middleware/requireAuth')
 
-// require auth for all location routes
+// require auth for all workout routes
 router.use(requireAuth)
 
 // GET all Locations

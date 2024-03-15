@@ -20,7 +20,7 @@ app.use(customMiddleware.requestLogger);
 
 app.get("/", (req, res) => res.send("API Running!"));
 
-app.use("/api/location", locationRouter);
+app.use("/api/locations", locationRouter);
 app.use("/api/users", userRouter);
 
 app.use(customMiddleware.unknownEndpoint);
