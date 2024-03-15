@@ -1,27 +1,34 @@
 import { Link, useNavigate } from "react-router-dom";
-const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
-  const navigate=useNavigate();
+import { useState } from "react";
 
+const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
+  const navigate = useNavigate();
+  const [bgColor, setBgColor] = useState("white"); // State for background color
 
   const handleClick = () => {
-  setIsAuthenticated(false);
+    setIsAuthenticated(false);
 
-  const user = localStorage.getItem("user");
-  const token = localStorage.getItem("token");
+    const user = localStorage.getItem("user");
+    const token = localStorage.getItem("token");
 
-  if (user) {
-    localStorage.removeItem("user");
-  }
+    if (user) {
+      localStorage.removeItem("user");
+    }
 
-  if (token) {
-    localStorage.removeItem("token");
-  }
+    if (token) {
+      localStorage.removeItem("token");
+    }
 
-  navigate("/login");
-};
+    navigate("/login");
+  };
+
+  const toggleBgColor = () => {
+    // Toggle between white and any other color of your choice
+    setBgColor(bgColor === "white" ? "lightblue" : "white");
+  };
 
   return (
-    <header>
+    <header style={{ backgroundColor: bgColor }}> {/* Set background color */}
       <div className="container">
         <Link to="/">
           <h1>Dashboard</h1>
@@ -30,7 +37,7 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
           {isAuthenticated && (
             <div>
                <span>{JSON.parse(localStorage.getItem("user")).email}</span>
-              <button onClick={() => handleClick()}>Log out</button>
+              <button onClick={handleClick}>Log out</button>
             </div>
           )}
           {!isAuthenticated && (
@@ -39,6 +46,7 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
               <Link to="/signup">Signup</Link>
             </div>
           )}
+          <button onClick={toggleBgColor}>Color</button> {/* Button to toggle background color */}
         </nav>
       </div>
     </header>
