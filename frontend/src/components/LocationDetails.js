@@ -4,11 +4,11 @@ const  LocationDetails= ({ location }) => {
   const navigate = useNavigate();
 
   const handleClick = async () => {
-    await fetch(`/api/location/${location._id}`, {
+    await fetch(`/api/locations/${location._id}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     });
-    navigate("/");
+    navigate("/login");
   };
 
   return (

@@ -1,13 +1,24 @@
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
 const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
+  const navigate=useNavigate();
 
-  const handleClick = (e) => {
-    setIsAuthenticated(false);
-    localStorage.removeItem("token");
+
+  const handleClick = () => {
+  setIsAuthenticated(false);
+
+  const user = localStorage.getItem("user");
+  const token = localStorage.getItem("token");
+
+  if (user) {
     localStorage.removeItem("user");
+  }
 
-  };
+  if (token) {
+    localStorage.removeItem("token");
+  }
+
+  navigate("/login");
+};
 
   return (
     <header>
@@ -18,8 +29,8 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
         <nav>
           {isAuthenticated && (
             <div>
-              <span>{JSON.parse(localStorage.getItem("user")).email}</span>
-              <button onClick={handleClick}>Log out</button>
+               <span>{JSON.parse(localStorage.getItem("user")).email}</span>
+              <button onClick={() => handleClick()}>Log out</button>
             </div>
           )}
           {!isAuthenticated && (

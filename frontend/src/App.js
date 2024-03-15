@@ -5,7 +5,6 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Navbar from "./components/Navbar";
-
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(
     Boolean(localStorage.getItem("token")) || false
@@ -13,7 +12,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
+        <Navbar setIsAuthenticated={setIsAuthenticated} isAuthenticated={isAuthenticated} />
         <div className="pages">
           <Routes>
             <Route

@@ -6,16 +6,16 @@ const Login = ({ setIsAuthenticated }) => {
   const navigate = useNavigate();
   const email = useField("email");
   const password = useField("password");
-
-  const { login, error } = useLogin("/api/users/login");
+  const { login, isLoading, error } = useLogin("/api/users/login");
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     await login({ email: email.value, password: password.value });
+
     if (!error) {
       console.log("success");
-      setIsAuthenticated(true);
-      navigate("/");
+      setIsAuthenticated(true); // Update isAuthenticated state
+      navigate("/"); // Navigate to the home page
     }
   };
 
@@ -27,7 +27,7 @@ const Login = ({ setIsAuthenticated }) => {
         <input {...email} />
         <label>Password:</label>
         <input {...password} />
-        <button>Sign up</button>
+        <button>Login</button>
       </form>
     </>
   );
