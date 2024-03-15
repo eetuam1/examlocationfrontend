@@ -13,9 +13,10 @@ const  LocationDetails= ({ location }) => {
 
   return (
     <div className="location-details">
-      <h4>{location.title}</h4>
-      <p>Author: {location.author}</p>
-      <p>Genre: {location.genre}</p>
+      <h4>{location.name}</h4>
+      <p>Address: {location.address}</p>
+      <p>Latitude: {location.latitude}</p>
+      <p>Longitude: {location.longitude}</p>
       <span
         className="material-symbols-outlined"
         onClick={handleClick}

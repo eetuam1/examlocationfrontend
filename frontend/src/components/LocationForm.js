@@ -58,7 +58,7 @@ const LocationForm = () => {
         onChange={(e) => setAddress(e.target.value)}
         value={address}
       />
-      <label>Laditude:</label>
+      <label>Latitude:</label>
       <input
         type="text"
         onChange={(e) => setLatitude(e.target.value)}

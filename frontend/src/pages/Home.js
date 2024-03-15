@@ -1,37 +1,39 @@
-import BookDetails from "../components/BookDetails";
-import BookForm from "../components/BookForm";
+import LocationDetails from "../components/LocationDetails";
+import LocationForm from "../components/LocationForm";
 import { useEffect, useState } from "react";
 
 const Home = () => {
-  const [bookArray, setBookArray] = useState([]);
+  const [locationArray, setLocationArray] = useState([]);
 
   useEffect(() => {
-    const getBooks = async () => {
-      const response = await fetch("/api/books", {
+    const getLocations = async () => {
+      const response = await fetch("/api/location", {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       const data = await response.json();
 
       if (!response.ok) {
         console.log(data.error);
-        setBookArray([]);
+        setLocationArray([]);
         return;
       }
-      setBookArray(data);
+      setLocationArray(data);
     };
-    getBooks();
+    getLocations();
   }, []);
 
   return (
     <div className="home">
-      <div className="bookArray">
-        {bookArray.length === 0 && <h2>No Books Found</h2>}
-        {bookArray.map((book) => (
-          <BookDetails key={book._id} book={book} />
+      <div className="locationArray">
+        {locationArray.length === 0 && <h2>No Locations Found</h2>}
+        {locationArray.map((location) => (
+          <LocationDetails key={location._id} location={location} />
         ))}
       </div>
-      <BookForm />
+      <LocationForm />
     </div>
   );
 };
 export default Home;
+
+

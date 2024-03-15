@@ -6,6 +6,11 @@ const Signup = ({ setIsAuthenticated }) => {
   const navigate = useNavigate();
   const email = useField("email");
   const password = useField("password");
+  const firstname = useField("firstname");
+  const lastname = useField("lastname");
+  const phoneNumber = useField("phoneNumber");
+  const role = useField("role");
+  
 
   const { signup, error } = useSignup("/api/users/signup");
 
@@ -27,6 +32,14 @@ const Signup = ({ setIsAuthenticated }) => {
         <input {...email} />
         <label>Password:</label>
         <input {...password} />
+        <label>First Name (Optional):</label>
+        <input {...firstname} />
+        <label>Last Name (Optional):</label>
+        <input {...lastname} />
+        <label>Phone Number (Optional):</label>
+        <input {...phoneNumber} />
+        <label>Role (Optional):</label>
+        <input {...role} />
         <button>Sign up</button>
       </form>
     </>
