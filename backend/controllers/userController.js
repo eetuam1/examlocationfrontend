@@ -5,19 +5,12 @@ const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "3d" });
 };
 
+// login a user
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    if (!email || !password) {
-      throw new Error("Email and password are required");
-    }
-
-    const user = await User.findOne({ email });
-
-    if (!user || !(await user.matchPassword(password))) {
-      throw new Error("Invalid email or password");
-    }
+    const user = await User.login(email, password);
 
     // create a token
     const token = createToken(user._id);
@@ -28,40 +21,18 @@ const loginUser = async (req, res) => {
   }
 };
 
+// signup a user
 const signupUser = async (req, res) => {
-  const { email, password, firstName, lastName, phoneNumber, role } = req.body;
+  const { email, password } = req.body;
 
   try {
-    if (!email || !password) {
-      throw new Error("Email and password are required");
-    }
+    const user = await User.signup(email, password);
 
-    // Check if email already exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ error: "Email already exists" });
-    }
-
-    // Create a new user
-    const user = new User({
-      email,
-      password,
-      firstName,
-      lastName,
-      phoneNumber,
-      role
-    });
-
-    // Save user to database
-    await user.save();
-
-    // Create a token
+    // create a token
     const token = createToken(user._id);
 
-    // Respond with status code 201 (Created) and user's email and token
-    res.status(201).json({ email: user.email, token });
+    res.status(200).json({ email, token });
   } catch (error) {
-    // Handle errors
     res.status(400).json({ error: error.message });
   }
 };

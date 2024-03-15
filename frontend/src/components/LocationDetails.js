@@ -8,7 +8,7 @@ const  LocationDetails= ({ location }) => {
       method: "DELETE",
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     });
-    navigate("/login");
+    navigate("/");
   };
 
   return (

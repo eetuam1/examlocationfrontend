@@ -5,17 +5,17 @@ const requestLogger = (request, response, next) => {
     console.log("---");
     next();
 };
-  
+
 const unknownEndpoint = (request, response) => {
     response.status(404).send({ error: "unknown endpoint" });
 };
-  
+
 const errorHandler = (error, request, response, next) => {
     console.error(error.message);
-  
-    response.status(500).json({
-        error: "Internal Server Error",
-        message: error.message,
+
+    response.status(500);
+    response.json({
+      message: error.message,
     });
 };
 
