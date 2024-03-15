@@ -38,21 +38,21 @@ describe("Location Routes", () => {
     await Location.deleteMany({});
     await Promise.all(locations.map(location =>
       api
-        .post("/api/location")
+        .post("/api/locations")
         .set("Authorization", "bearer " + token)
         .send(location)
     ));
   });
 
-  it("should return all locations as JSON when GET /api/location is called", async () => {
+  it("should return all locations as JSON when GET /api/locations is called", async () => {
     await api
-      .get("/api/location")
+      .get("/api/locations")
       .set("Authorization", "bearer " + token)
       .expect(200)
       .expect("Content-Type", /application\/json/);
   });
 
-  it("should create one location when POST /api/location is called", async () => {
+  it("should create one location when POST /api/locations is called", async () => {
     const newLocation = {
       name: "Test Location",
       address: "Test Address",
@@ -60,22 +60,22 @@ describe("Location Routes", () => {
       longitude: -5.6789
     };
     await api
-      .post("/api/location")
+      .post("/api/locations")
       .set("Authorization", "bearer " + token)
       .send(newLocation)
       .expect(201);
   });
   
-  it("should return one location by ID when GET /api/location/:id is called", async () =>  {
+  it("should return one location by ID when GET /api/locations/:id is called", async () =>  {
     const location = await Location.findOne();
     await api
-      .get("/api/location/" + location._id)
+      .get("/api/locations/" + location._id)
       .set("Authorization", "bearer " + token)
       .expect(200)
       .expect("Content-Type", /application\/json/);
   });
 
-  it("should update one location by ID when PUT /api/location/:id is called", async () => {
+  it("should update one location by ID when PUT /api/locations/:id is called", async () => {
     const location = await Location.findOne();
     const updatedLocation = {
       name: "Updated Location",
@@ -84,7 +84,7 @@ describe("Location Routes", () => {
       longitude: -50.5678
     };
     await api
-      .put("/api/location/" + location._id)
+      .put("/api/locations/" + location._id)
       .set("Authorization", "bearer " + token)
       .send(updatedLocation)
       .expect(200);
@@ -92,10 +92,10 @@ describe("Location Routes", () => {
     expect(updatedLocationCheck.toJSON()).toEqual(expect.objectContaining(updatedLocation));
   });
 
-  it("should delete one location by ID when DELETE /api/location/:id is called", async () => {
+  it("should delete one location by ID when DELETE /api/locations/:id is called", async () => {
     const location = await Location.findOne();
     await api
-      .delete("/api/location/" + location._id)
+      .delete("/api/locations/" + location._id)
       .set("Authorization", "bearer " + token)
       .expect(200);
     const locationCheck = await Location.findById(location._id);
